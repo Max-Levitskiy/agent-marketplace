@@ -21,6 +21,24 @@
         "writing",
         "editing"
       ]
+    },
+    {
+      "name": "fellow",
+      "source": "./plugins/fellow",
+      "description": "Query Fellow meeting notes, transcripts, AI summaries, and action items via the Fellow REST API. Search past meetings, write recaps into a repo, and bulk-export to markdown. Read-only, no MCP server required.",
+      "version": "0.1.0",
+      "license": "MIT",
+      "author": { "name": "Max Levitskiy" },
+      "category": "productivity",
+      "keywords": [
+        "fellow",
+        "meetings",
+        "meeting-notes",
+        "transcripts",
+        "action-items",
+        "meeting-recap",
+        "api"
+      ]
     }
   ]
 }
