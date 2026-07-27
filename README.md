@@ -54,6 +54,15 @@ Prefer a UI? Run `/plugin` to open the interactive browser, pick a plugin, and i
 | Plugin | Description | Install |
 | ------ | ----------- | ------- |
 | [`text-density-analyzer`](plugins/text-density-analyzer) | Detect repeated information and measure information density in text. Score or fix AI-generated bloat, semantic repetition, and filler content. | `/plugin install text-density-analyzer@claude-code-marketplace` |
+| [`fellow`](plugins/fellow) | Query Fellow meeting notes, transcripts, AI summaries, and action items via the Fellow REST API. Search past meetings, write recaps into a repo, bulk-export to markdown. | `/plugin install fellow@claude-code-marketplace` |
+
+## Standards
+
+Conventions shared by plugins in this marketplace.
+
+| Standard | What it covers |
+| -------- | -------------- |
+| [Skill Config Standard](standards/skill-config.md) | How a skill stores settings across global / repo / local layers, and references secrets without ever committing one. Reference implementation: [`fellow`](plugins/fellow). |
 
 ## Add your own plugin
 

@@ -1,0 +1,62 @@
+{
+  "//": "Example only. Copy to ~/.agents/skill-config/fellow/config.json (global),",
+  "//1": "<repo>/.agents/skill-config/fellow/config.json (repo, committed), or",
+  "//2": "<repo>/.agents/skill-config/fellow/config.local.json (local, gitignored).",
+  "//3": "Never put the API key itself in here — only a reference to where it lives.",
+
+  "version": 1,
+
+  "workspace": {
+    "subdomain": "acme"
+  },
+
+  "credentials": {
+    "apiKey": {
+      "source": "1password",
+      "ref": "op://Vault/Fellow API key/credential",
+      "account": "OPTIONAL_ACCOUNT_ID"
+    },
+
+    "//alternatives": "Replace the apiKey object above with any one of these:",
+    "//env": { "source": "env", "var": "FELLOW_API_KEY" },
+    "//dotenv": { "source": "dotenv", "path": ".env.local", "var": "FELLOW_API_KEY" },
+    "//keychain": { "source": "keychain", "service": "fellow", "account": "me@example.com" },
+    "//command": { "source": "command", "command": "pass show work/fellow-api-key" }
+  },
+
+  "storage": {
+    "recaps": { "enabled": true, "path": "docs/meetings" },
+    "transcripts": { "enabled": true, "path": "~/Documents/fellow/transcripts" },
+    "media": { "enabled": false, "path": "~/Documents/fellow/media" }
+  },
+
+  "defaults": {
+    "pageSize": 50,
+    "lookbackDays": 30
+  },
+
+  "//projects": "Named scopes. Filtering applies automatically when defaultProject is set; --all-meetings turns it off. A plain string matches as a substring; wrap in /slashes/ for a regex.",
+  "projects": {
+    "acme": {
+      "label": "Acme Corp engagement",
+      "title": { "include": ["Acme", "Project Falcon", "/\\bACM\\b/i"], "exclude": ["Acme social"] },
+      "//people": "Attendee emails or domains. A client domain is often the single most reliable signal.",
+      "people": { "include": ["@acme.example"], "exclude": [] },
+      "//fallback": "What to do when nothing matches: undecided (default), include, or exclude.",
+      "fallback": "undecided"
+    },
+    "platform": {
+      "label": "Internal platform work",
+      "title": { "include": ["Platform", "Infra sync"] },
+      "fallback": "undecided"
+    }
+  },
+  "defaultProject": "acme",
+
+  "//series": "Machine-maintained by `project classify` — do not hand-edit except to correct a verdict. Keyed by calendar series, so one entry covers every occurrence of a recurring meeting. project:null means 'belongs to no configured project'.",
+  "series": {
+    "gcal:3f9k2m1p8q4r7s0t5u6v7w8x9y": { "project": "platform", "why": "Daily platform standup", "at": "2026-01-15" },
+    "ol:1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d": { "project": "acme", "why": "Recurring Acme delivery sync", "at": "2026-01-15" },
+    "id:Qk7ZpLm2Xy": { "project": null, "why": "Company all-hands — not project work", "at": "2026-01-15" }
+  }
+}
