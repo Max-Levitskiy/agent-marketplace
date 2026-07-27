@@ -7,8 +7,8 @@ phrasing; this plugin finds those patterns and measures information density.
 ## Install
 
 ```bash
-/plugin marketplace add Max-Levitskiy/claude-code-marketplace
-/plugin install text-density-analyzer@claude-code-marketplace
+/plugin marketplace add Max-Levitskiy/agent-marketplace
+/plugin install text-density-analyzer@agent-marketplace
 ```
 
 ## Use
