@@ -1,0 +1,71 @@
+{
+  "//": "Example only. Copy to ~/.agents/skill-config/orchestrate/config.json (global),",
+  "//1": "<repo>/.agents/skill-config/orchestrate/config.json (repo, committed), or",
+  "//2": "<repo>/.agents/skill-config/orchestrate/config.local.json (local, gitignored).",
+  "//3": "Never put a token itself in here — only a reference to where it lives.",
+  "//4": "Every key is optional: with no config at all the skill discovers the tracker",
+  "//5": "from the project and runs with the defaults shown below.",
+
+  "version": 1,
+
+  "//tracker": "Where work packages are tracked. kind is one of: file, tasknotes, github, jira, linear. Only github/jira/linear need a credential.",
+  "tracker": {
+    "kind": "file",
+    "//path": "file | tasknotes — repo-relative path to the tracker file, or the task folder for tasknotes.",
+    "path": "tasks.md",
+
+    "//github": "kind=github — the issue repo. Auth falls back to the gh CLI when credentials.githubToken is absent.",
+    "repo": "acme/launch",
+
+    "//jira": "kind=jira — site host, project key, and the Atlassian account email the token belongs to.",
+    "site": "acme.atlassian.net",
+    "project": "LAUNCH",
+    "email": "me@example.com",
+
+    "//linear": "kind=linear — team key.",
+    "team": "ENG",
+
+    "//labels": "Applied to every package entry the orchestrator creates. Arrays replace wholesale across layers.",
+    "labels": ["orchestrate"]
+  },
+
+  "//questions": "Where question documents collect, and who answers them. path is relative to the work, not the repo root.",
+  "questions": {
+    "path": "questions",
+    "human": "Alex (product lead)"
+  },
+
+  "//models": "Package tiering. Judgment-heavy drafting goes to the stronger model; mechanical work to the cheaper one. Omit to inherit the session model.",
+  "models": {
+    "judgment": "opus",
+    "mechanical": "haiku"
+  },
+
+  "//defaults": "Tunables. Shown values are the built-in defaults.",
+  "defaults": {
+    "maxParallelAgents": 5,
+    "maxPackages": 8,
+    "verifyOnDisk": true
+  },
+
+  "//credentials": "Only needed for a remote tracker. Pick ONE source per credential.",
+  "credentials": {
+    "githubToken": {
+      "source": "1password",
+      "ref": "op://Vault/GitHub token/credential",
+      "account": "OPTIONAL_ACCOUNT_ID"
+    },
+
+    "//alternatives": "Replace the object above with any one of these:",
+    "//env": { "source": "env", "var": "GITHUB_TOKEN" },
+    "//dotenv": { "source": "dotenv", "path": ".env.local", "var": "GITHUB_TOKEN" },
+    "//keychain": { "source": "keychain", "service": "github", "account": "me@example.com" },
+    "//command": { "source": "command", "command": "pass show work/github-token" },
+
+    "//jiraToken": "kind=jira — an Atlassian API token, paired with tracker.email.",
+    "jiraToken": { "source": "env", "var": "JIRA_API_TOKEN" },
+
+    "//linearToken": "kind=linear — a Linear personal API key.",
+    "linearToken": { "source": "keychain", "service": "linear", "account": "me@example.com" }
+  }
+}

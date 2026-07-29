@@ -55,6 +55,7 @@ Prefer a UI? Run `/plugin` to open the interactive browser, pick a plugin, and i
 | ------ | ----------- | ------- |
 | [`text-density-analyzer`](plugins/text-density-analyzer) | Detect repeated information and measure information density in text. Score or fix AI-generated bloat, semantic repetition, and filler content. | `/plugin install text-density-analyzer@max-skills` |
 | [`fellow`](plugins/fellow) | Query Fellow meeting notes, transcripts, AI summaries, and action items via the Fellow REST API. Search past meetings, write recaps into a repo, bulk-export to markdown. | `/plugin install fellow@max-skills` |
+| [`orchestrate`](plugins/orchestrate) | Run a multi-part task as small, tracked, parallel work packages — one agent, one output file each — with an async question protocol so waiting on human decisions never blocks progress. | `/plugin install orchestrate@max-skills` |
 
 ## Standards
 
@@ -62,7 +63,7 @@ Conventions shared by plugins in this marketplace.
 
 | Standard | What it covers |
 | -------- | -------------- |
-| [Skill Config Standard](standards/skill-config.md) | How a skill stores settings across global / repo / local layers, and references secrets without ever committing one. Reference implementation: [`fellow`](plugins/fellow). |
+| [Skill Config Standard](standards/skill-config.md) | How a skill stores settings across global / repo / local layers, and references secrets without ever committing one. Reference implementations: [`fellow`](plugins/fellow) (credential-backed) and [`orchestrate`](plugins/orchestrate) (optional config, credential only for hosted trackers). |
 
 ## Add your own plugin
 
