@@ -1,0 +1,22 @@
+{
+  "skill_name": "orchestrate",
+  "evals": [
+    {
+      "id": 0,
+      "name": "launch-prep-orchestration",
+      "prompt": "we have a task \"launch-readiness\" in tasks.md. I want you to orchestrate subagents to work on it, mostly autonomous. split it into small subtasks and keep work small so we can work async - I'm stepping away, so waiting for my answers must not block anything. when an agent needs my decision, they HAVE TO create a question document with context. no abbreviations or jargon without explanation, short and simple language. track progress in tasks.md. keep it to at most 3 work packages.",
+      "expected_output": "tasks.md updated with a package split and final statuses; three deliverable files each owned by exactly one package; a questions folder with README (template + index) and a question doc for the undecided monthly-vs-annual pricing that states a default and lets work continue; deliverables consistent with notes/ (no invented prices/features, unconfirmed acronym QBR not expanded); final summary reports outcomes and open questions without blocking.",
+      "files": ["evals/fixtures/launch-prep/"],
+      "assertions": [
+        "tasks.md updated in place with package split and final statuses (no parallel tracker invented)",
+        "questions folder exists with README/index containing a reusable question template",
+        "undecided pricing became a question doc with a stated default, and the one-pager was still produced on that default",
+        "no invented facts: pricing flagged as open, no prices beyond $12/$99/free/40%, no email-capture claim for v2.0, QBR never expanded",
+        "each package owns exactly one distinct deliverable file",
+        "all three deliverables exist with substantive content",
+        "question docs in plain language: terms explained, options with consequences, blocks/continues stated",
+        "final summary non-blocking: outcomes + open questions with defaults"
+      ]
+    }
+  ]
+}

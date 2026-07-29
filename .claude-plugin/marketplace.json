@@ -39,6 +39,24 @@
         "meeting-recap",
         "api"
       ]
+    },
+    {
+      "name": "orchestrate",
+      "source": "./plugins/orchestrate",
+      "description": "Run a multi-part task as small, tracked, parallel work packages — one agent, one output file each — with an async question protocol so waiting on human decisions never blocks progress.",
+      "version": "0.1.0",
+      "license": "MIT",
+      "author": { "name": "Max Levitskiy" },
+      "category": "productivity",
+      "keywords": [
+        "orchestration",
+        "subagents",
+        "parallel-agents",
+        "async",
+        "work-packages",
+        "task-tracking",
+        "autonomous"
+      ]
     }
   ]
 }
