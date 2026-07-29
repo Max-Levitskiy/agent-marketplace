@@ -3,7 +3,7 @@
 Read-only access to [Fellow](https://fellow.ai) meeting data — notes, transcripts, AI summaries, and action items — through Fellow's REST API. No MCP server. The bundled CLI is a zero-dependency `bun` script, so there's nothing to install beyond `bun` itself.
 
 ```bash
-/plugin install fellow@agent-marketplace
+/plugin install fellow@max-skills
 ```
 
 ## What it does

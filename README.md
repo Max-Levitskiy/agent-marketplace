@@ -1,18 +1,18 @@
-# Agent Marketplace — Claude Code Plugins, Skills, Subagents, Hooks & MCP Servers
+# Skills — Claude Code Plugin Marketplace: Skills, Subagents, Hooks & MCP Servers
 
 > A **Claude Code plugin marketplace**: install curated plugins — slash commands, skills, subagents, hooks, and MCP servers — into [Claude Code](https://code.claude.com) with a single command.
 
 Add this marketplace to Claude Code:
 
 ```bash
-/plugin marketplace add Max-Levitskiy/agent-marketplace
+/plugin marketplace add Max-Levitskiy/skills
 ```
 
 Then browse and install plugins:
 
 ```bash
 /plugin                                          # open the interactive plugin browser
-/plugin install <plugin-name>@agent-marketplace
+/plugin install <plugin-name>@max-skills
 ```
 
 ---
@@ -32,19 +32,19 @@ This repo is a [Claude Code](https://code.claude.com) **plugin marketplace** —
 **1. Add the marketplace** (one time):
 
 ```bash
-/plugin marketplace add Max-Levitskiy/agent-marketplace
+/plugin marketplace add Max-Levitskiy/skills
 ```
 
 **2. Install a plugin:**
 
 ```bash
-/plugin install <plugin-name>@agent-marketplace
+/plugin install <plugin-name>@max-skills
 ```
 
 **3. Keep it current:**
 
 ```bash
-/plugin marketplace update agent-marketplace
+/plugin marketplace update max-skills
 ```
 
 Prefer a UI? Run `/plugin` to open the interactive browser, pick a plugin, and install it there.
@@ -53,8 +53,8 @@ Prefer a UI? Run `/plugin` to open the interactive browser, pick a plugin, and i
 
 | Plugin | Description | Install |
 | ------ | ----------- | ------- |
-| [`text-density-analyzer`](plugins/text-density-analyzer) | Detect repeated information and measure information density in text. Score or fix AI-generated bloat, semantic repetition, and filler content. | `/plugin install text-density-analyzer@agent-marketplace` |
-| [`fellow`](plugins/fellow) | Query Fellow meeting notes, transcripts, AI summaries, and action items via the Fellow REST API. Search past meetings, write recaps into a repo, bulk-export to markdown. | `/plugin install fellow@agent-marketplace` |
+| [`text-density-analyzer`](plugins/text-density-analyzer) | Detect repeated information and measure information density in text. Score or fix AI-generated bloat, semantic repetition, and filler content. | `/plugin install text-density-analyzer@max-skills` |
+| [`fellow`](plugins/fellow) | Query Fellow meeting notes, transcripts, AI summaries, and action items via the Fellow REST API. Search past meetings, write recaps into a repo, bulk-export to markdown. | `/plugin install fellow@max-skills` |
 
 ## Standards
 

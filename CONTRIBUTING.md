@@ -38,7 +38,7 @@ Add an entry to the `plugins` array in [`.claude-plugin/marketplace.json`](.clau
 
 ```json
 {
-  "name": "agent-marketplace",
+  "name": "max-skills",
   "owner": { "name": "Max Levitskiy", "email": "max.dstu@gmail.com" },
   "plugins": [
     {
@@ -62,7 +62,7 @@ Test locally before pushing:
 
 ```bash
 /plugin marketplace add /path/to/this/repo      # local path works for dev
-/plugin install my-plugin@agent-marketplace
+/plugin install my-plugin@max-skills
 ```
 
 Then open a pull request. Also add a row to the **Plugins** table in the [README](README.md).
