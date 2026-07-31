@@ -1,0 +1,16 @@
+code-density-analyzer
+=====================
+
+Authored by Max Levitskiy and distributed under the MIT License (see LICENSE).
+
+Adapts the methodology of the text-density-analyzer plugin — parallel analysis
+subagents feeding a weighted composite score, validated against human-edited
+references — from prose to code. The ten code-analysis methods are new; five
+inherit the prompt patterns of their text-density counterparts (duplication ←
+claim-similarity, dead code ← filler, comment redundancy ← new-information,
+verbosity ← compression-ratio, boilerplate ← structure-template) and five are
+code-specific (over-abstraction, error-masking, convention-adherence,
+hallucinated-deps, perf-waste).
+
+text-density-analyzer was originally authored by Web-Tree
+(https://github.com/Web-tree) and is distributed in this same marketplace.

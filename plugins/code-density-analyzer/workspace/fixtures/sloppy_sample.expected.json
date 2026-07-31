@@ -1,0 +1,13 @@
+[
+  {"method": "hallucinated-deps", "pattern": "nonexistent-import", "anchor": "nonexistent_fastjson_pro"},
+  {"method": "code-duplication", "pattern": "near-clone", "anchor": "validate_customer_record"},
+  {"method": "comment-redundancy", "pattern": "restates-code", "anchor": "increment the count by one"},
+  {"method": "over-abstraction", "pattern": "trivial-wrapper", "anchor": "get_name_from_record"},
+  {"method": "dead-code-filler", "pattern": "unused-variable", "anchor": "debug_mode"},
+  {"method": "dead-code-filler", "pattern": "leftover-debug", "anchor": "done processing"},
+  {"method": "dead-code-filler", "pattern": "todo-stub", "anchor": "summarize_results"},
+  {"method": "perf-waste", "pattern": "io-in-loop", "anchor": "open(\"audit.log\""},
+  {"method": "error-masking", "pattern": "silent-catch", "anchor": "except Exception"},
+  {"method": "verbosity-inflation", "pattern": "inflated-construct", "anchor": "count_valid"},
+  {"method": "boilerplate-template", "pattern": "tutorial-scaffold", "anchor": "main entry point"}
+]

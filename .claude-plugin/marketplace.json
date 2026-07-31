@@ -57,6 +57,24 @@
         "task-tracking",
         "autonomous"
       ]
+    },
+    {
+      "name": "code-density-analyzer",
+      "source": "./plugins/code-density-analyzer",
+      "description": "Detect AI-generation slop in code — duplication, dead code, redundant comments, verbosity, over-abstraction, error masking, convention violations, hallucinated dependencies, and performance waste. Scores a git diff or standalone files with a weighted composite density score via 10 parallel analysis methods.",
+      "version": "0.1.0",
+      "license": "MIT",
+      "author": { "name": "Max Levitskiy" },
+      "category": "development",
+      "keywords": [
+        "code-density",
+        "ai-slop",
+        "code-quality",
+        "code-review",
+        "duplication",
+        "dead-code",
+        "code-smell"
+      ]
     }
   ]
 }
