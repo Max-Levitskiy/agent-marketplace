@@ -103,6 +103,8 @@ Prefer the human-readable form when you're going to summarize for the user — i
 
 `--all` costs one extra request per additional page, which is cheap next to being wrong.
 
+## Going deeper
+
 The full endpoint list, filter fields, response shapes, and the API quirks the CLI already works around are in `references/api.md`.
 
 ## Scope
