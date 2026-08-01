@@ -1,6 +1,6 @@
 ---
 name: fellow
-description: Retrieve and work with Fellow (fellow.app) meeting notes, transcripts, AI summaries, and action items via its REST API — answer questions about past meetings, write meeting recaps into a repo or vault, and bulk-export notes and transcripts to markdown. Use this whenever the user asks about their meetings, calls, standups, 1-on-1s, or client sessions — "what did we decide about X", "what were my action items this week", "pull the transcript from Friday's call", "summarize yesterday's client meeting", "who said we should move the deadline", "write up a recap of the kickoff", "export last month's meeting notes". Trigger even when Fellow is never named: any request to recall, search, summarize, or file what happened in a past meeting belongs here. Also trigger for setting up or fixing Fellow API access and credentials.
+description: Retrieve and work with Fellow (fellow.app) meeting notes, transcripts, AI summaries, and action items — answer questions about past meetings, write recaps into a repo, bulk-export to markdown. Trigger even when Fellow is never named — any request to recall, search, summarize, or file what happened in a meeting, like "what did we decide about X", "my action items this week", "pull Friday's transcript". Also for setting up Fellow API access.
 ---
 
 # Fellow API
@@ -59,9 +59,7 @@ Narrow the window when you can — `--since 7` over a busy workspace is many tim
 
 ### Treat AI notes as a summary, not as the record
 
-`ai_notes` — the summary, decisions, and topics — is machine-generated from the transcript. It's the fastest way to answer most questions, and it's usually right. But it commits to *one* reading of an ambiguous conversation, and it states that reading with more confidence than the conversation supports.
-
-Consider a discussion where participants weigh two options and refer to them by shorthand labels, swapping which label means which partway through. The summariser has to pick one assignment, and it states it flatly. Answering from the summary alone reproduces that choice as fact, when reading the transcript would show the labels were never stable and the options are better described by their content.
+`ai_notes` is machine-generated from the transcript. It's the fastest way to answer most questions and usually right — but it commits to *one* reading of an ambiguous conversation, and states that reading with more confidence than the conversation supports.
 
 So when the answer depends on precise wording, who said what, or a distinction the participants themselves were fuzzy about, check the transcript before reporting:
 
@@ -70,7 +68,7 @@ bun "$F" recap <id> --transcript
 bun "$F" search "<the phrase in question>" --since 14 --transcripts
 ```
 
-Quote the speaker rather than the summary when attribution matters. If the transcript and the AI note disagree, the transcript wins and it's worth telling the user they diverge — that disagreement is often the interesting part. Fellow's transcription is also imperfect with names and jargon (people's names get mangled, domain acronyms get mis-expanded), so read around an odd-looking term rather than repeating it.
+Quote the speaker rather than the summary when attribution matters. If the transcript and the AI note disagree, the transcript wins — and tell the user they diverge, since that disagreement is often the interesting part. Fellow's transcription mangles names and jargon, so read around an odd-looking term rather than repeating it.
 
 To find a meeting by name rather than content, list and filter:
 
