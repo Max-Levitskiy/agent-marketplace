@@ -87,44 +87,11 @@ bun "$F" recap <id> --transcript                      # everything, including th
 bun "$F" recordings get <id> --transcript-only        # just the words
 ```
 
-### Writing a meeting recap into a repo or vault
+### Other tasks
 
-`recap` produces finished markdown — title, date, attendees, AI summary, decisions, action items — so you rarely need to assemble one by hand from raw JSON.
-
-Important: a Fellow *note* is usually just the blank agenda template. The substance lives on the linked *recording* as `ai_notes`. `recap` joins them for you; a note fetched on its own will look empty and misleading.
-
-When filing the recap into a project, follow that project's conventions rather than dumping the raw output — check for a `CLAUDE.md`/`AGENTS.md` describing filenames, front-matter, index files, or cross-linking, and match it. Use `--json` if you need the structured fields to build a custom layout:
-
-```bash
-bun "$F" recap <id> --json    # { note, recording, markdown }
-```
-
-If the config defines `storage.recaps.path`, that's where the user expects recaps to land. `bun "$F" config show` lists each storage target with its resolved path, or `(not configured)` — check there before inventing a destination.
-
-### Bulk export
-
-```bash
-bun "$F" export --since 30                        # recaps → storage.recaps.path (or .agents/fellow/export)
-bun "$F" export --since 30 --transcripts          # transcripts → storage.transcripts.path
-bun "$F" export --since 7 --out ./meetings        # explicit destination wins
-```
-
-Export writes one markdown file per meeting, named `YYYY-MM-DD_slug.md`. It fetches AI notes for the whole window in a single paginated pass rather than one request per meeting, so a month-wide export is a handful of calls.
-
-Warn the user before exporting a wide window into a git repo — transcripts are verbatim records of everything said, and committing them is a decision they should make deliberately rather than discover later.
-
-### Action items
-
-```bash
-bun "$F" action-items --open --all                # every outstanding item — note the --all
-bun "$F" action-items --open --all --scope all    # the whole workspace, not just this user
-```
-
-**Use `--all` here.** Pages cap at 50, and a workspace easily has more open items than that. Without it you get the first 50 and no error — an answer that looks complete and isn't. The CLI now says so when a result fills a page, but it's easier to just always pass `--all` for a question like "what's outstanding", where a partial answer is worthless.
-
-`--scope` defaults to `assigned_to_me`, which is what people mean by "my action items". `assigned_to_others` and `all` widen it. A non-privileged API key only ever sees the authenticated user's own data, so `--scope all` returning just their items may be the key's permissions rather than the filter — mention that possibility rather than reporting it as the team having no work.
-
-Project scoping does **not** apply to action items: the API scopes them by assignee, and an item's link back to a meeting is optional. Each row prints its source note id so you can look up the meeting when it matters.
+- **Filing a recap into a repo or vault** → **read `references/writing-recaps.md`**.
+- **Bulk export** (`export`) → **read `references/export.md`**. Transcripts are verbatim records of everything said — warn the user before a wide window lands in a git repo.
+- **Action items** → **read `references/action-items.md`**. Always pass `--all`: pages cap at 50, and a truncated list looks exactly like a complete one.
 
 ## Output modes
 
