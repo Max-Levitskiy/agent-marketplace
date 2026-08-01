@@ -232,7 +232,7 @@ Every non-blank line of original 34–48 must appear in the new file:
 ```bash
 git show HEAD:plugins/fellow/skills/fellow/SKILL.md | sed -n '34,48p' | grep -v '^$' \
   | while IFS= read -r l; do
-      grep -qF "$l" plugins/fellow/skills/fellow/references/onboarding.md \
+      grep -qF -- "$l" plugins/fellow/skills/fellow/references/onboarding.md \
         || echo "MISSING: $l"
     done
 ```
@@ -545,7 +545,7 @@ git show HEAD:plugins/fellow/skills/fellow/SKILL.md > /tmp/orig-skill.md
 missing=0
 while IFS= read -r l; do
   [ -z "$l" ] && continue
-  grep -qFr "$l" SKILL.md references/ || { echo "UNACCOUNTED: $l"; missing=$((missing+1)); }
+  grep -qFr -- "$l" SKILL.md references/ || { echo "UNACCOUNTED: $l"; missing=$((missing+1)); }
 done < /tmp/orig-skill.md
 echo "unaccounted: $missing"
 ```
