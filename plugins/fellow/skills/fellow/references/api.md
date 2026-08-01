@@ -11,6 +11,7 @@ Condensed from <https://developers.fellow.ai> (machine-readable index: `https://
 - [Response shapes](#response-shapes)
 - [Objects](#objects)
 - [Access levels](#access-levels)
+- [Gotchas the script already handles](#gotchas-the-script-already-handles)
 
 ## Basics
 
@@ -166,3 +167,16 @@ Some notes carry no `event_guid` at all; fall back to the note id for those.
 | 404 (HTML body) | Wrong workspace subdomain — Fellow serves its marketing page, not a JSON error |
 | 405 | Used GET on a list endpoint; it must be POST |
 | 200 with empty `data` | Frequently a malformed request body (`page_size` outside `pagination`) rather than genuinely empty data |
+
+## Gotchas the script already handles
+
+You don't need these to use the CLI — they matter only when debugging odd behaviour or
+calling the API directly.
+
+- **List endpoints are POST, not GET.** A GET returns `405 Method not allowed`.
+- **`page_size` must be nested under `pagination`.** At the top level the API returns `200 OK` with an *empty list* instead of an error — indistinguishable from an empty workspace.
+- **Fetch-by-id paths are singular**: `/note/{id}`, `/recording/{id}`, `/action_item/{id}` (underscore), while list paths are plural.
+- **Fetch-by-id returns the expensive fields by default** (transcript, AI notes); *list* endpoints return them as `null` unless you pass `include`.
+- **Docs live on `fellow.ai`, the API on `fellow.app`.** `api.fellow.ai` doesn't resolve.
+- **Status values are `Done | Archived | Incomplete`** — compare exactly; `"Incomplete".includes("complete")` is true and silently inverts the check.
+- **`event_guid` is per-occurrence, not per-series** — see [Calendar ids and recurring meetings](#calendar-ids-and-recurring-meetings) before caching anything on it.
