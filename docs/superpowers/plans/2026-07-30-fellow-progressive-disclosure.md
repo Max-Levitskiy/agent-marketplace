@@ -2,7 +2,7 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Split `plugins/fellow/skills/fellow/SKILL.md` from 220 always-loaded lines into a ~95-line core plus five task-scoped reference files, so only the instructions a given task needs enter context.
+**Goal:** Split `plugins/fellow/skills/fellow/SKILL.md` from 220 always-loaded lines into a smaller always-loaded core plus five task-scoped reference files, so only the instructions a given task needs enter context. Drafted against a ~95-line target; the measured result is 110 (see Task 7 Step 2).
 
 **Architecture:** Content that is always true stays in `SKILL.md`. Content needed for exactly one task moves to `references/<task>.md`, reached by a bold imperative pointer at the point of need — the convention already used in `plugins/orchestrate/skills/orchestrate/SKILL.md:146,173`. Each pointer carries its section's safety rule inline, so a skipped read degrades to *less detail* rather than *wrong action*.
 
@@ -23,7 +23,7 @@
 
 | Path | Action | Responsibility |
 | --- | --- | --- |
-| `plugins/fellow/skills/fellow/SKILL.md` | Modify | Always-true material + pointers. Target ~95 lines. |
+| `plugins/fellow/skills/fellow/SKILL.md` | Modify | Always-true material + pointers. Drafted at ~95 lines; measured 110. |
 | `.../references/onboarding.md` | Create | First-run setup only. |
 | `.../references/project-scoping.md` | Create | Bootstrapping projects + judging undecided series. |
 | `.../references/writing-recaps.md` | Create | Filing a recap into a repo or vault. |
@@ -563,7 +563,9 @@ Any *other* unaccounted line is a bug — restore it before continuing.
 bash "$SB/check-skill-refs.sh" plugins/fellow/skills/fellow; echo "exit=$?"
 ```
 
-Expected: `exit=0`, `SKILL.md` between 90 and 105 lines. Below 90 means something was dropped that shouldn't have been; above 105 means an extraction is incomplete.
+Expected: `exit=0` and `SKILL.md` at **110 lines**.
+
+This supersedes the 90–105 gate written when the plan was drafted. That range came from per-task estimates that each drifted by a line or two; the measured reductions were 220 → 198 → 157 → 124 → 112 → 110. Every step was verified against the original at `5e1bc13` and reviewed clean, so 110 is the correct result, not a sign of an incomplete extraction. A count materially below 110 means content was dropped; materially above means an extraction did not land.
 
 - [ ] **Step 3: Check the README for claims the refactor invalidated**
 
@@ -610,7 +612,7 @@ git commit -m "📝 docs(fellow): reconcile README with the split skill" || echo
 | Verification 1 (commands resolve) | checker section 2 |
 | Verification 2 (links resolve) | checker section 1 |
 | Verification 3 (line accounting) | 7 Step 1 |
-| Verification 4 (~95 lines) | 7 Step 2 |
+| Verification 4 (core line count) | 7 Step 2 |
 
 **Placeholder scan:** the `<original lines N–M, verbatim>` markers in Tasks 2–5 are not placeholders — the source is committed at `HEAD` and each is given an exact line range plus the exact edits to apply. Every line of *new* prose is written out in full.
 
