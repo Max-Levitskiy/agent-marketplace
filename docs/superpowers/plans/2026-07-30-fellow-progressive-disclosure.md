@@ -10,7 +10,7 @@
 
 ## Global Constraints
 
-- **Nothing is lost except one named passage.** Every line of the original 220 must end up moved verbatim, retained, or covered by the single deliberate compression in Task 6. Reconcile against `git show HEAD:plugins/fellow/skills/fellow/SKILL.md`.
+- **Nothing is lost except one named passage.** Every line of the original 220 must end up moved verbatim, retained, or covered by the single deliberate compression in Task 6. Reconcile against `git show 5e1bc13:plugins/fellow/skills/fellow/SKILL.md`.
 - **Guardrails never leave `SKILL.md`.** The three rules named in Tasks 3 and 4 stay in the core even though their surrounding prose moves.
 - **Pointer style is a bold imperative**, e.g. ``**read `references/onboarding.md`**`` — not a routing table, not a bare link.
 - **Depth changes by one level inside `references/`.** The Skill Config Standard is `../../../../standards/skill-config.md` from `SKILL.md` but `../../../../../standards/skill-config.md` from `references/`. `config.example.json` becomes `../config.example.json`.
@@ -31,10 +31,10 @@
 | `.../references/action-items.md` | Create | Action-item queries. |
 | `.../references/api.md` | Modify | Absorbs the "Gotchas" list; TOC updated. |
 
-All line numbers below refer to the **original** `SKILL.md` at `HEAD` (commit `5e1bc13`), retrievable with:
+All line numbers below refer to the **original** `SKILL.md` at commit `5e1bc13`, retrievable with:
 
 ```bash
-git show HEAD:plugins/fellow/skills/fellow/SKILL.md
+git show 5e1bc13:plugins/fellow/skills/fellow/SKILL.md
 ```
 
 ---
@@ -230,7 +230,7 @@ Expected: `exit=0`. `SKILL.md` should now be ~199 lines.
 Every non-blank line of original 34–48 must appear in the new file:
 
 ```bash
-git show HEAD:plugins/fellow/skills/fellow/SKILL.md | sed -n '34,48p' | grep -v '^$' \
+git show 5e1bc13:plugins/fellow/skills/fellow/SKILL.md | sed -n '34,48p' | grep -v '^$' \
   | while IFS= read -r l; do
       grep -qF -- "$l" plugins/fellow/skills/fellow/references/onboarding.md \
         || echo "MISSING: $l"
@@ -541,7 +541,7 @@ Extract every non-blank line of the original and confirm it exists somewhere in 
 
 ```bash
 cd plugins/fellow/skills/fellow
-git show HEAD:plugins/fellow/skills/fellow/SKILL.md > /tmp/orig-skill.md
+git show 5e1bc13:plugins/fellow/skills/fellow/SKILL.md > /tmp/orig-skill.md
 missing=0
 while IFS= read -r l; do
   [ -z "$l" ] && continue
