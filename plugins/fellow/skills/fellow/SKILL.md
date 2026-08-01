@@ -59,7 +59,7 @@ Narrow the window when you can — `--since 7` over a busy workspace is many tim
 
 ### Treat AI notes as a summary, not as the record
 
-`ai_notes` is machine-generated from the transcript. It's the fastest way to answer most questions and usually right — but it commits to *one* reading of an ambiguous conversation, and states that reading with more confidence than the conversation supports.
+`ai_notes` — the summary, decisions, and topics — is machine-generated from the transcript. It's the fastest way to answer most questions and usually right — but it commits to *one* reading of an ambiguous conversation, and states that reading with more confidence than the conversation supports.
 
 So when the answer depends on precise wording, who said what, or a distinction the participants themselves were fuzzy about, check the transcript before reporting:
 
@@ -68,7 +68,7 @@ bun "$F" recap <id> --transcript
 bun "$F" search "<the phrase in question>" --since 14 --transcripts
 ```
 
-Quote the speaker rather than the summary when attribution matters. If the transcript and the AI note disagree, the transcript wins — and tell the user they diverge, since that disagreement is often the interesting part. Fellow's transcription mangles names and jargon, so read around an odd-looking term rather than repeating it.
+Quote the speaker rather than the summary when attribution matters. If the transcript and the AI note disagree, the transcript wins — and tell the user they diverge, since that disagreement is often the interesting part. Fellow's transcription mangles names and jargon (people's names get mangled, domain acronyms get mis-expanded), so read around an odd-looking term rather than repeating it.
 
 To find a meeting by name rather than content, list and filter:
 
