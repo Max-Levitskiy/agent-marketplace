@@ -56,6 +56,7 @@ Prefer a UI? Run `/plugin` to open the interactive browser, pick a plugin, and i
 | [`text-density-analyzer`](plugins/text-density-analyzer) | Detect repeated information and measure information density in text. Score or fix AI-generated bloat, semantic repetition, and filler content. | `/plugin install text-density-analyzer@max-skills` |
 | [`fellow`](plugins/fellow) | Query Fellow meeting notes, transcripts, AI summaries, and action items via the Fellow REST API. Search past meetings, write recaps into a repo, bulk-export to markdown. | `/plugin install fellow@max-skills` |
 | [`orchestrate`](plugins/orchestrate) | Run a multi-part task as small, tracked, parallel work packages — one agent, one output file each — with an async question protocol so waiting on human decisions never blocks progress. | `/plugin install orchestrate@max-skills` |
+| [`code-density-analyzer`](plugins/code-density-analyzer) | Detect AI-generation slop in code — duplication, dead code, redundant comments, verbosity, over-abstraction, error masking, convention violations, hallucinated dependencies, and performance waste. Scores a git diff or standalone files via 10 parallel analysis methods. | `/plugin install code-density-analyzer@max-skills` |
 
 ## Standards
 
