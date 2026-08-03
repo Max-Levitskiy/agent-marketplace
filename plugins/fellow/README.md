@@ -55,7 +55,7 @@ Keying is on a derived series id, not `event_guid` — the raw value is per-occu
 
 Just ask Claude to set up Fellow access. It will ask where your key lives, which workspace to use, and what to store where, then write the config and verify it with a real API call.
 
-Configuration follows the [Skill Config Standard](../../standards/skill-config.md): three layers (global `~/.agents/`, repo, and a gitignored local layer), and **the API key is never written to a config file** — only a reference to where it lives (1Password, an env var, a `.env` file, Keychain, or any shell command).
+Configuration follows the [Agent Config Standard](../../standards/agent-config.md): three layers (global `~/.agents/`, repo, and a gitignored local layer), and **the API key is never written to a config file** — only a reference to where it lives (1Password, an env var, a `.env` file, Keychain, or any shell command).
 
 See [`skills/fellow/config.example.json`](skills/fellow/config.example.json) for the full shape.
 

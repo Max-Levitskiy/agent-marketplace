@@ -2,11 +2,11 @@
 // Fellow Developer API CLI — read-only.
 // Run `bun fellow.ts help` for usage.
 
-import { mkdirSync, writeFileSync, readFileSync, appendFileSync, existsSync } from "fs";
+import { mkdirSync, writeFileSync } from "fs";
 import { join, dirname } from "path";
 import {
   loadConfig, validate, layerPath, repoRoot, expandPath, recordSeriesVerdict,
-  LOCAL_GITIGNORE_PATTERN, type Layer, type FellowConfig,
+  ensureGitignored, LOCAL_GITIGNORE_PATTERN, type Layer, type FellowConfig,
 } from "./lib/config";
 import { resolveCredential, describeCredential } from "./lib/credentials";
 import { FellowClient, transcriptToText, aiNotesToMarkdown, daysAgo } from "./lib/client";
@@ -611,11 +611,18 @@ async function cmdConfig(sub: string) {
   }
 
   if (sub === "show") {
-    const { config, found, missing } = loadConfig();
-    if (asJson) return console.log(JSON.stringify({ config, found, missing }, null, 2));
+    const { config, found, missing, legacy } = loadConfig();
+    if (asJson) return console.log(JSON.stringify({ config, found, missing, legacy }, null, 2));
+    const isLegacy = (p: string) => legacy.some((l) => l.path === p);
     console.log("Config layers (later overrides earlier):");
-    for (const f of found) console.log(`  ✓ ${f.layer.padEnd(6)} ${f.path}`);
+    for (const f of found) console.log(`  ✓ ${f.layer.padEnd(6)} ${f.path}${isLegacy(f.path) ? "  (pre-rename path)" : ""}`);
     for (const m of missing) console.log(`  · ${m.layer.padEnd(6)} ${m.path} (absent)`);
+    if (legacy.length) {
+      console.log(
+        `\n${legacy.length} file(s) sit at the pre-rename .agents/skill-config/ path. Both locations are read\n` +
+          "and the new one wins, so nothing is broken — move them to .agents/config/ when convenient.",
+      );
+    }
     console.log(`\nWorkspace: ${config.workspace?.subdomain ?? "(not set)"}`);
     console.log(`Credential: ${config.credentials?.apiKey ? describeCredential(config.credentials.apiKey) : "(not set)"}`);
     const st = (config.storage ?? {}) as Record<string, any>;
@@ -647,16 +654,15 @@ async function cmdConfig(sub: string) {
   }
 
   if (sub === "gitignore") {
-    const root = repoRoot();
-    if (!root) fail("Not inside a git repository.");
-    const gi = join(root, ".gitignore");
-    const existing = existsSync(gi) ? readFileSync(gi, "utf8") : "";
-    if (existing.split("\n").some((l) => l.trim() === LOCAL_GITIGNORE_PATTERN)) {
-      console.log(`Already ignored: ${LOCAL_GITIGNORE_PATTERN}`);
-      return;
-    }
-    appendFileSync(gi, `${existing && !existing.endsWith("\n") ? "\n" : ""}\n# Local skill config (may reference secrets)\n${LOCAL_GITIGNORE_PATTERN}\n`);
-    console.log(`Added to ${gi}: ${LOCAL_GITIGNORE_PATTERN}`);
+    // The shared implementation tests with `git check-ignore`, so a pattern already covered
+    // by a broader rule counts as ignored, and it carries the legacy pattern too.
+    const { path, action } = ensureGitignored();
+    if (action === "no-repo") fail("Not inside a git repository.");
+    console.log(
+      action === "already-ignored"
+        ? `Already ignored: ${LOCAL_GITIGNORE_PATTERN}`
+        : `Added to ${path}: ${LOCAL_GITIGNORE_PATTERN}`,
+    );
     return;
   }
 
