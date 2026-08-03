@@ -9,5 +9,7 @@
 # Logs
 *.log
 
-# Local skill config (may reference secrets) — see standards/skill-config.md
+# Local agent config (may reference secrets) — see standards/agent-config.md
+.agents/config/*/config.local.json
+# pre-rename location, still read at lower precedence
 .agents/skill-config/*/config.local.json
