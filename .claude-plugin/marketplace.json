@@ -6,6 +6,24 @@
   },
   "plugins": [
     {
+      "name": "agent-config",
+      "source": "./plugins/agent-config",
+      "description": "The Agent Config Standard (ACS v1) as a reusable skill: layered global/repo/local settings, credential references that keep secrets out of git, and a re-runnable onboarding flow. Other skills and subagents invoke it instead of restating the rules, and vendor its zero-dependency loader instead of copying their own.",
+      "version": "0.1.0",
+      "license": "MIT",
+      "author": { "name": "Max Levitskiy" },
+      "category": "development",
+      "keywords": [
+        "config",
+        "configuration",
+        "credentials",
+        "secrets",
+        "onboarding",
+        "standard",
+        "skill-authoring"
+      ]
+    },
+    {
       "name": "text-density-analyzer",
       "source": "./plugins/text-density-analyzer",
       "description": "Detect repeated information and measure information density in text. Score or fix AI-generated bloat, semantic repetition, and filler content.",

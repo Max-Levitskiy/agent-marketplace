@@ -57,6 +57,7 @@ Prefer a UI? Run `/plugin` to open the interactive browser, pick a plugin, and i
 | [`fellow`](plugins/fellow) | Query Fellow meeting notes, transcripts, AI summaries, and action items via the Fellow REST API. Search past meetings, write recaps into a repo, bulk-export to markdown. | `/plugin install fellow@max-skills` |
 | [`orchestrate`](plugins/orchestrate) | Run a multi-part task as small, tracked, parallel work packages — one agent, one output file each — with an async question protocol so waiting on human decisions never blocks progress. | `/plugin install orchestrate@max-skills` |
 | [`code-density-analyzer`](plugins/code-density-analyzer) | Detect AI-generation slop in code — duplication, dead code, redundant comments, verbosity, over-abstraction, error masking, convention violations, hallucinated dependencies, and performance waste. Scores a git diff or standalone files via 10 parallel analysis methods. | `/plugin install code-density-analyzer@max-skills` |
+| [`agent-config`](plugins/agent-config) | Give a skill or subagent layered settings — global, repo, and a gitignored local layer — plus credentials referenced from 1Password, the environment, a dotenv file, Keychain, or any command, so a secret never lands in a config file. Includes a re-runnable onboarding flow and a zero-dependency loader other plugins vendor instead of rewriting. | `/plugin install agent-config@max-skills` |
 
 ## Standards
 
@@ -64,7 +65,7 @@ Conventions shared by plugins in this marketplace.
 
 | Standard | What it covers |
 | -------- | -------------- |
-| [Skill Config Standard](standards/skill-config.md) | How a skill stores settings across global / repo / local layers, and references secrets without ever committing one. Reference implementations: [`fellow`](plugins/fellow) (credential-backed) and [`orchestrate`](plugins/orchestrate) (optional config, credential only for hosted trackers). |
+| [Agent Config Standard](standards/agent-config.md) | How a skill or subagent stores settings across global / repo / local layers, and references secrets without ever committing one. Canonical implementation: [`agent-config`](plugins/agent-config). Reference implementations: [`fellow`](plugins/fellow) (credential-backed) and [`orchestrate`](plugins/orchestrate) (optional config, credential only for hosted trackers). |
 
 ## Add your own plugin
 
