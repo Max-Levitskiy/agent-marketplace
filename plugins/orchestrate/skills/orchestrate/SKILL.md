@@ -54,7 +54,11 @@ Everything else adapts to the project; these do not.
 
 ## Configuration
 
-Settings live in config files per the [Skill Config Standard](https://github.com/Max-Levitskiy/skills/blob/main/standards/skill-config.md).
+**Optional.** With no config at all the skill discovers the project's tracker in Phase 1 and
+runs on defaults; config only caches those decisions so you stop re-making them.
+
+Three layers under `.agents/config/orchestrate/` — global, repo, local, later wins — per the
+[Agent Config Standard](https://github.com/Max-Levitskiy/skills/blob/main/standards/agent-config.md).
 Throughout this document, `$O` means the bundled config CLI:
 
 ```bash
@@ -76,54 +80,41 @@ bun "$O" check
 - **Exits 2 with "not ready"** → config exists but is incomplete; it lists exactly which
   keys are missing. Fix those keys, don't rewrite the user's config.
 
-Config is a cache of decisions, not a gate. A `file` tracker needs no credential, so a
-configured setup can be entirely secret-free — the credential path only engages when the
-tracker is a hosted issue tracker.
+`tracker.kind` is one of `file`, `tasknotes`, `github`, `jira`, `linear`. The first two are
+local and need no credential, so a `file` tracker is a complete secret-free setup; only the
+three hosted trackers engage the credential path at all. Orchestrate's own keys —
+`questions.path`, `questions.human`, `models.judgment`, `models.mechanical`, and `defaults`
+— are documented with realistic values in `config.example.json` next to this file.
 
 ### Onboarding
 
-Only when `check` reports missing configuration. Keep it to four questions, use
-`AskUserQuestion` so the user picks rather than types, and finish by verifying.
+Only when `check` reports missing configuration. **The `agent-config` skill owns the
+walkthrough** — which layer, credential-reference sources and their shapes, writing,
+gitignoring. Four questions are orchestrate's own; use `AskUserQuestion` so the user picks
+rather than types.
 
-1. **Where should work packages be tracked?** Offer what the project already has —
-   look before asking, and put the discovered option first: an existing `tasks.md` or
-   `TODO.md` (`kind: file`), a task folder with frontmatter task files such as Obsidian
-   TaskNotes (`kind: tasknotes`), GitHub issues (`kind: github`), Jira (`kind: jira`),
-   or Linear (`kind: linear`). If nothing exists, recommend `file` with a new `tasks.md`
-   next to the work — it needs no credential and no setup.
-
-2. **Where does the credential live** — only for `github`, `jira`, or `linear`. Offer the
-   sources the standard supports: 1Password (`op`), an environment variable, a `.env`
-   file, macOS Keychain, or an arbitrary shell command for other password managers. GitHub
-   additionally works with no credential at all when the `gh` CLI is already authenticated
-   — offer that first if `gh auth status` succeeds. **Never accept the token itself as
-   text and never write it into a config file — store a *reference* to where it lives.**
-
-3. **Which config layer?** Recommend and explain, don't just list:
-   - **global** (`~/.agents/skill-config/orchestrate/config.json`) — credentials and
-     model preferences, which follow the person across every project.
-   - **repo** (`<repo>/.agents/skill-config/orchestrate/config.json`, committed) — the
-     tracker and questions path, which the whole team shares.
-   - **local** (`config.local.json`, gitignored) — personal overrides on a shared repo.
-
-4. **Model tiering** — which model for judgment-heavy drafting versus mechanical work.
-   Offer to skip; unset means every worker inherits the session model.
+1. **Where should work packages be tracked?** Look before asking and put the discovered
+   option first: an existing `tasks.md` or `TODO.md` (`file`), a task folder with frontmatter
+   task files such as Obsidian TaskNotes (`tasknotes`), or GitHub / Jira / Linear. If nothing
+   exists, recommend `file` with a new `tasks.md` next to the work — no credential, no setup.
+2. **Where does the credential live** — only for `github`, `jira`, `linear`. GitHub needs
+   none at all when `gh auth status` already succeeds; offer that first.
+3. **Where do question docs collect, and who answers them** — `questions.path`,
+   `questions.human`.
+4. **Model tiering** — which model for judgment-heavy drafting versus mechanical work. Offer
+   to skip; unset means every worker inherits the session model.
 
 Then write it and confirm it works:
 
 ```bash
-echo '<the layer's full JSON>' | bun "$O" write repo    # or: global | local
-bun "$O" verify                                          # resolves the credential, makes one real call
+echo '<layer JSON>' | bun "$O" write repo   # or: global | local
+bun "$O" verify                             # resolves the credential, makes one real call
 ```
 
-`write` refuses any config with an inlined secret and gitignores the local layer for you.
-`verify` is the only step that touches the credential — `check` and `show` never do, so
-neither triggers a password-manager prompt. **Onboarding is not finished until `verify`
-prints OK.** "Configured" means working, not "file written".
-
-Onboarding is re-runnable: to change an answer, write the layer again. `bun "$O" show`
-prints the merged result with credentials described (`1Password: op://…`) but never
-revealed. Every supported key is documented in `config.example.json` next to this file.
+`write` rejects a secret inlined in `credentials` and gitignores the local layer for you.
+**Onboarding is not finished until `verify` prints OK** — "configured" means working, not
+"file written". To change an answer, write the layer again; `bun "$O" show` prints the merged
+result with credentials described, never revealed.
 
 ## Phase 1 — Setup
 
