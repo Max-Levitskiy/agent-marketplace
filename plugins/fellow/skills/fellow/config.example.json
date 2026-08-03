@@ -1,8 +1,10 @@
 {
-  "//": "Example only. Copy to ~/.agents/skill-config/fellow/config.json (global),",
-  "//1": "<repo>/.agents/skill-config/fellow/config.json (repo, committed), or",
-  "//2": "<repo>/.agents/skill-config/fellow/config.local.json (local, gitignored).",
+  "//": "Example only. Copy to ~/.agents/config/fellow/config.json (global),",
+  "//1": "<repo>/.agents/config/fellow/config.json (repo, committed), or",
+  "//2": "<repo>/.agents/config/fellow/config.local.json (local, gitignored).",
   "//3": "Never put the API key itself in here — only a reference to where it lives.",
+  "//4": "The older ~/.agents/skill-config/fellow/ location is still read, at lower",
+  "//5": "precedence, so an existing setup keeps working. See standards/agent-config.md.",
 
   "version": 1,
 
