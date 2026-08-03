@@ -42,7 +42,7 @@ One line back is enough. If your answer matches the default, nothing needs redoi
 
 Optional — with no config the skill discovers the project's tracker and runs on defaults. Configure it to skip that discovery, tier models, or point work at a hosted issue tracker.
 
-Settings follow the [Skill Config Standard](../../standards/skill-config.md): `global` → `repo` → `local`, deep-merged, with a bundled CLI.
+Settings follow the [Agent Config Standard](../../standards/agent-config.md): `global` → `repo` → `local`, deep-merged, with a bundled CLI.
 
 ```bash
 O="$CLAUDE_PLUGIN_ROOT/skills/orchestrate/scripts/orchestrate-config.ts"
@@ -80,7 +80,7 @@ skills/orchestrate/
 ├── references/
 │   ├── agent-prompt.md             worker prompt scaffold + a worked example
 │   └── question-protocol.md        folder layout, question template, writing rules
-├── scripts/orchestrate-config.ts   SCS v1 config CLI
+├── scripts/orchestrate-config.ts   ACS v1 config CLI
 ├── config.example.json             every supported key
 └── evals/                          eval set + fixture workspace
 ```

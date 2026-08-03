@@ -1,10 +1,12 @@
 {
-  "//": "Example only. Copy to ~/.agents/skill-config/orchestrate/config.json (global),",
-  "//1": "<repo>/.agents/skill-config/orchestrate/config.json (repo, committed), or",
-  "//2": "<repo>/.agents/skill-config/orchestrate/config.local.json (local, gitignored).",
+  "//": "Example only. Copy to ~/.agents/config/orchestrate/config.json (global),",
+  "//1": "<repo>/.agents/config/orchestrate/config.json (repo, committed), or",
+  "//2": "<repo>/.agents/config/orchestrate/config.local.json (local, gitignored).",
   "//3": "Never put a token itself in here — only a reference to where it lives.",
   "//4": "Every key is optional: with no config at all the skill discovers the tracker",
   "//5": "from the project and runs with the defaults shown below.",
+  "//6": "The older ~/.agents/skill-config/orchestrate/ location is still read, at lower",
+  "//7": "precedence, so an existing setup keeps working. See standards/agent-config.md.",
 
   "version": 1,
 

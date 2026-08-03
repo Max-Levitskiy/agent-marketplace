@@ -1,5 +1,5 @@
 #!/usr/bin/env bun
-// orchestrate — Skill Config Standard (SCS v1) CLI.
+// orchestrate — Agent Config Standard (ACS v1) CLI.
 //
 //   bun orchestrate-config.ts check          layers, effective settings, what's missing
 //   bun orchestrate-config.ts show           merged config (credentials described, never revealed)
@@ -44,7 +44,7 @@ function forDisplay(c: OrchestrateConfig): any {
 }
 
 async function cmdCheck() {
-  const { config, found, missing } = loadConfig();
+  const { config, found, missing, legacy } = loadConfig();
   const root = repoRoot();
 
   console.log(`repo root: ${root ?? "(not a git repository — only the global layer applies)"}`);
@@ -55,8 +55,24 @@ async function cmdCheck() {
       console.log(`  ${layer.padEnd(6)} n/a       (needs a git repository)`);
       continue;
     }
-    const hit = found.find((f) => f.layer === layer);
-    console.log(`  ${layer.padEnd(6)} ${hit ? "found    " : "missing  "} ${p}`);
+    // A layer can hold two files: the current path and the pre-rename one. Print the path
+    // actually read, never the expected one — otherwise a legacy-only setup reads as
+    // "found" beside a path that does not exist.
+    const hits = found.filter((f) => f.layer === layer);
+    if (!hits.length) {
+      console.log(`  ${layer.padEnd(6)} missing   ${p}`);
+      continue;
+    }
+    for (const h of hits) {
+      console.log(`  ${layer.padEnd(6)} ${h.path === p ? "found    " : "legacy   "} ${h.path}`);
+    }
+  }
+
+  if (legacy.length) {
+    console.log(
+      `\n${legacy.length} file(s) sit at the pre-rename .agents/skill-config/ path. Both locations are\n` +
+        "read and the new one wins, so nothing is broken — move them to .agents/config/ when convenient.",
+    );
   }
 
   if (found.length === 0) {
@@ -172,7 +188,7 @@ switch (cmd) {
   case undefined:
     console.log(
       [
-        "orchestrate config (SCS v1)",
+        "orchestrate config (ACS v1)",
         "",
         "  check              layers, effective settings, what's missing  (exit 2 = not ready)",
         "  show               merged config; credentials shown as descriptions, never values",
